@@ -1,4 +1,4 @@
-// src/services/ai.service.ts
+// src/services/aiservice.ts
 
 import { aiApi } from "@/api/PYaiApi";
 
@@ -10,18 +10,17 @@ export interface ChartData {
   insight: string;
 }
 
-export interface ProductAnalysis {
-  productos_criticos: string[];
-  productos_top: string[];
-  recomendaciones: string[];
-  resumen: string;
-}
-
-export interface PurchaseOrderRecommendation {
-  cantidad_sugerida: number;
-  justificacion: string;
-  costo_total: number;
-  fecha_entrega: string;
+export interface PredictionResult {
+  prediction_type: string;
+  title: string;
+  chart_type: 'bar' | 'line';
+  data: Array<{ label: string; value: number; type?: string }>;
+  metrics: any;
+  insight: string;
+  confidence: string;
+  model_accuracy?: string;
+  top_products?: any[];
+  predictions?: any[];
 }
 
 export const aiService = {
@@ -49,37 +48,54 @@ export const aiService = {
   },
 
   /**
-   * Analiza productos y genera recomendaciones
+   * Genera un reporte PDF con IA basado en un prompt
    */
-  async analyzeProducts(productos: any[]): Promise<ProductAnalysis> {
+  async generateReport(
+    prompt: string,
+    dataSource: 'productos' | 'ordenes' | 'ventas' | 'all',
+    productos?: any[],
+    ordenes?: any[],
+    ventas?: any[]
+  ): Promise<Blob> {
     try {
-      const { data } = await aiApi.post<ProductAnalysis>('/analyze-products', {
+      const response = await aiApi.post('/generate-report', {
+        prompt,
+        dataSource,
         productos,
+        ordenes,
+        ventas,
+      }, {
+        responseType: 'blob',
       });
-      return data;
+      
+      return response.data;
     } catch (error) {
-      console.error('Error analyzing products:', error);
+      console.error('Error generating report:', error);
       throw error;
     }
   },
 
   /**
-   * Genera recomendación de orden de compra
+   * Genera predicciones con Machine Learning
    */
-  async generatePurchaseOrder(
-    producto: any,
-    stock_actual: number = 0,
-    demanda_promedio: number = 5
-  ): Promise<PurchaseOrderRecommendation> {
+  async predict(
+    prompt: string,
+    predictionType: 'auto' | 'ventas' | 'ordenes' | 'productos',
+    ventas?: any[],
+    productos?: any[],
+    ordenes?: any[]
+  ): Promise<PredictionResult> {
     try {
-      const { data } = await aiApi.post<PurchaseOrderRecommendation>('/generate-po', {
-        producto,
-        stock_actual,
-        demanda_promedio,
+      const { data } = await aiApi.post<PredictionResult>('/predict', {
+        prompt,
+        predictionType,
+        ventas,
+        productos,
+        ordenes,
       });
       return data;
     } catch (error) {
-      console.error('Error generating purchase order:', error);
+      console.error('Error generating prediction:', error);
       throw error;
     }
   },

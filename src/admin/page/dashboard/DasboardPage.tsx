@@ -1,10 +1,12 @@
 import ActivityFeed from "@/admin/components/ActivityFeed";
 import { AdminTitle } from "@/admin/components/AdminTitle";
-import { AiConnectionTest } from "@/admin/components/AiConnectionTest";
+import { AiChartGenerator } from "@/admin/components/AiChartGenerator";
 import Chart from "@/admin/components/Chart";
 import QuickActions from "@/admin/components/QuickActions";
 import StatCard from "@/admin/components/StatCard";
 import { Users, DollarSign, ShoppingCart, TrendingUp, Eye, BarChart3 } from "lucide-react";
+import { AiReportGenerator } from "@/admin/components/AiReportGenerator";
+import { AiPredictionGenerator } from "@/admin/components/AiPredictionGenerator";
 
 const stats = [
     {
@@ -61,9 +63,25 @@ export const DasboardPage = () => {
       {/* Welcome Section */}
           
           <AdminTitle title="Dashboard" subtitle="Aqui puedes ver el estado de tu negocio"/>
-          <AiConnectionTest />
+          
+          {/* 1. Gráficas */}
+      <div className="mb-8">
+        <AiChartGenerator />
+      </div>
+      
+      {/* 2. Reportes PDF */}
+      <div className="mb-8">
+        <AiReportGenerator />
+      </div>
+      
+      {/* 3. Predicciones ML */}
+      <div className="mb-8">
+        <AiPredictionGenerator />
+      </div>
+
+
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 mt-8">
             {stats.map((stat, index) => (
               <StatCard key={index} {...stat} />
             ))}
