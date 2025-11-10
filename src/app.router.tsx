@@ -64,9 +64,9 @@ export const appRouter = createBrowserRouter([
     {
         path: '/admin',
         element:
-      
-            <AdminLayout/> 
-      
+            <AdminRoute>
+                <AdminLayout/> 
+            </AdminRoute>
         ,
         children: [
             {

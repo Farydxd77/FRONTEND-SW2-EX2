@@ -1,5 +1,6 @@
 import ActivityFeed from "@/admin/components/ActivityFeed";
 import { AdminTitle } from "@/admin/components/AdminTitle";
+import { AiConnectionTest } from "@/admin/components/AiConnectionTest";
 import Chart from "@/admin/components/Chart";
 import QuickActions from "@/admin/components/QuickActions";
 import StatCard from "@/admin/components/StatCard";
@@ -60,6 +61,7 @@ export const DasboardPage = () => {
       {/* Welcome Section */}
           
           <AdminTitle title="Dashboard" subtitle="Aqui puedes ver el estado de tu negocio"/>
+          <AiConnectionTest />
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {stats.map((stat, index) => (
