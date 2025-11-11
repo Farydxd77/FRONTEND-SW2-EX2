@@ -9,7 +9,10 @@ import {
   Bell, 
   HelpCircle,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Warehouse,
+  Calendar,
+  TrendingUp
 } from 'lucide-react';
 import { CustomLogo } from '@/components/custom/CustomLogo';
 import { Link, useLocation } from 'react-router';
@@ -29,6 +32,9 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle }) 
   const menuItems = [
     { icon: Home, label: 'Dashboard',to: '/admin' },
     { icon: BarChart3, label: 'Productos', to: '/admin/products' },
+    { icon: Warehouse, label: 'Inventario', to: '/admin/inventory' },
+    { icon: Calendar, label: 'Lotes', to: '/admin/lotes' },
+    { icon: TrendingUp, label: 'MRP', to: '/admin/mrp' },
     { icon: Users, label: 'Usuarios' },
     { icon: ShoppingCart, label: 'Ordenes' },
     { icon: FileText, label: 'Reportes' },
@@ -39,9 +45,18 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle }) 
 
   const isActiveRoute = ( to: string) => {
     // Todo: ajustarlo cuando estemos en la pantalla de productos
-    if ( pathname.includes('/admin/products/') && to === '/admin/products'){
+    if (pathname.includes('/admin/products/') && to === '/admin/products') {
       return true;
     }
+    if (pathname.includes('/admin/inventory/') && to === '/admin/inventory') {
+      return true;
+    }
+    if (pathname.includes('/admin/lotes/') && to === '/admin/lotes') {
+      return true;
+    }
+    // if (pathname.includes('/admin/mrp/') && to === '/admin/mrp') {
+    //   return true;
+    // }
     return pathname === to ;
   }
 
