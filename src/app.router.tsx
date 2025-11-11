@@ -9,8 +9,11 @@ import { DasboardPage } from "./admin/page/dashboard/DasboardPage";
 import { AdminProductsPage } from "./admin/page/products/AdminProductsPage";
 import { AdminProductPage } from "./admin/page/product/AdminProductPage";
 import { lazy } from "react";
-import {  AdminRoute, NotAuthenticatedRoute } from "./components/routes/ProtectedRoutes";
+import { AdminRoute, NotAuthenticatedRoute } from "./components/routes/ProtectedRoutes";
 import OrdersPage from "./admin/page/Orders/OrdersPage";
+import { AdminInventoryPage } from "./admin/page/inventory/AdminInventoryPage";
+import { AdminLotesPage } from "./admin/page/lotes/AdminLotesPage";
+import { AdminMRPPage } from "./admin/page/mrp/AdminMRPPage";
 
 
 const AuthLayouts = lazy( () => import('./auth/layouts/AuthLayouts'));
@@ -80,13 +83,24 @@ export const appRouter = createBrowserRouter([
             },
              {
                 path: 'ordenes',
-                element: <OrdersPage/>
+                element: <OrdersPage />
             },
             {
                 path: 'products/:id',
                 element: <AdminProductPage/>
             },
-            
+            {
+                path: 'inventory',
+                element: <AdminInventoryPage/>
+            },
+            {
+                path: 'lotes',
+                element: <AdminLotesPage/>
+            },
+            {
+                path: 'mrp',
+                element: <AdminMRPPage/>
+            },
         ]
     },{
         path: '*',
